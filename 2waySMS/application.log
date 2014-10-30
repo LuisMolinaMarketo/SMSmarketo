@@ -1,0 +1,275 @@
+11:30:23,834 INFO  ~ Starting C:\SourceCode\Marketo-master\2waySMS
+11:30:23,839 INFO  ~ Module secure is available (C:\play-1.2.5\modules\secure)
+11:30:24,547 WARN  ~ You're running Play! in DEV mode
+11:30:24,678 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+11:30:59,524 ERROR ~ 
+
+@6k2ndci9m
+Internal Server Error (500) for request GET /
+
+Oops: UnexpectedException
+An unexpected error occured caused by exception UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+
+play.exceptions.UnexpectedException: While applying play.CorePlugin@f08448 on jobs.AddToFetchQueue
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:556)
+	at play.classloading.ApplicationClasses$ApplicationClass.enhance(ApplicationClasses.java:235)
+	at play.classloading.ApplicationClassloader.loadApplicationClass(ApplicationClassloader.java:167)
+	at play.classloading.ApplicationClassloader.getAllClasses(ApplicationClassloader.java:431)
+	at play.Play.start(Play.java:516)
+	at play.Play.detectChanges(Play.java:630)
+	at play.Invoker$Invocation.init(Invoker.java:198)
+	at Invocation.HTTP Request(Play!)
+Caused by: play.exceptions.UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+	at play.CorePlugin.enhance(CorePlugin.java:302)
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:551)
+	... 7 more
+Caused by: java.lang.RuntimeException: java.io.IOException: invalid constant type: 15
+	at javassist.CtClassType.getClassFile2(CtClassType.java:203)
+	at javassist.CtClassType.subtypeOf(CtClassType.java:303)
+	at javassist.bytecode.stackmap.TypeData$TypeName.update(TypeData.java:274)
+	at javassist.bytecode.stackmap.TypeData$TypeName.setType(TypeData.java:203)
+	at javassist.bytecode.stackmap.TypeData.setType(TypeData.java:46)
+	at javassist.bytecode.stackmap.Tracer.checkParamTypes(Tracer.java:908)
+	at javassist.bytecode.stackmap.Tracer.doInvokeMethod(Tracer.java:813)
+	at javassist.bytecode.stackmap.Tracer.doOpcode148_201(Tracer.java:615)
+	at javassist.bytecode.stackmap.Tracer.doOpcode(Tracer.java:101)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:161)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:120)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:96)
+	at javassist.bytecode.MethodInfo.rebuildStackMap(MethodInfo.java:404)
+	at javassist.bytecode.MethodInfo.rebuildStackMapIf6(MethodInfo.java:389)
+	at javassist.expr.ExprEditor.doit(ExprEditor.java:112)
+	at javassist.CtBehavior.instrument(CtBehavior.java:618)
+	at play.classloading.enhancers.PropertiesEnhancer.enhanceThisClass(PropertiesEnhancer.java:135)
+	at play.CorePlugin.enhance(CorePlugin.java:297)
+	... 8 more
+Caused by: java.io.IOException: invalid constant type: 15
+	at javassist.bytecode.ConstPool.readOne(ConstPool.java:1027)
+	at javassist.bytecode.ConstPool.read(ConstPool.java:970)
+	at javassist.bytecode.ConstPool.<init>(ConstPool.java:127)
+	at javassist.bytecode.ClassFile.read(ClassFile.java:693)
+	at javassist.bytecode.ClassFile.<init>(ClassFile.java:85)
+	at javassist.CtClassType.getClassFile2(CtClassType.java:190)
+	... 27 more
+11:32:13,266 INFO  ~ Starting C:\SourceCode\Marketo-master\2waySMS
+11:32:13,271 INFO  ~ Module secure is available (C:\play-1.2.5\modules\secure)
+11:32:13,954 WARN  ~ You're running Play! in DEV mode
+11:32:14,100 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+11:32:21,727 ERROR ~ 
+
+@6k2ndhai8
+Internal Server Error (500) for request GET /
+
+Oops: UnexpectedException
+An unexpected error occured caused by exception UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+
+play.exceptions.UnexpectedException: While applying play.CorePlugin@f08448 on jobs.AddToFetchQueue
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:556)
+	at play.classloading.ApplicationClasses$ApplicationClass.enhance(ApplicationClasses.java:235)
+	at play.classloading.ApplicationClassloader.loadApplicationClass(ApplicationClassloader.java:167)
+	at play.classloading.ApplicationClassloader.getAllClasses(ApplicationClassloader.java:431)
+	at play.Play.start(Play.java:516)
+	at play.Play.detectChanges(Play.java:630)
+	at play.Invoker$Invocation.init(Invoker.java:198)
+	at Invocation.HTTP Request(Play!)
+Caused by: play.exceptions.UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+	at play.CorePlugin.enhance(CorePlugin.java:302)
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:551)
+	... 7 more
+Caused by: java.lang.RuntimeException: java.io.IOException: invalid constant type: 15
+	at javassist.CtClassType.getClassFile2(CtClassType.java:203)
+	at javassist.CtClassType.subtypeOf(CtClassType.java:303)
+	at javassist.bytecode.stackmap.TypeData$TypeName.update(TypeData.java:274)
+	at javassist.bytecode.stackmap.TypeData$TypeName.setType(TypeData.java:203)
+	at javassist.bytecode.stackmap.TypeData.setType(TypeData.java:46)
+	at javassist.bytecode.stackmap.Tracer.checkParamTypes(Tracer.java:908)
+	at javassist.bytecode.stackmap.Tracer.doInvokeMethod(Tracer.java:813)
+	at javassist.bytecode.stackmap.Tracer.doOpcode148_201(Tracer.java:615)
+	at javassist.bytecode.stackmap.Tracer.doOpcode(Tracer.java:101)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:161)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:120)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:96)
+	at javassist.bytecode.MethodInfo.rebuildStackMap(MethodInfo.java:404)
+	at javassist.bytecode.MethodInfo.rebuildStackMapIf6(MethodInfo.java:389)
+	at javassist.expr.ExprEditor.doit(ExprEditor.java:112)
+	at javassist.CtBehavior.instrument(CtBehavior.java:618)
+	at play.classloading.enhancers.PropertiesEnhancer.enhanceThisClass(PropertiesEnhancer.java:135)
+	at play.CorePlugin.enhance(CorePlugin.java:297)
+	... 8 more
+Caused by: java.io.IOException: invalid constant type: 15
+	at javassist.bytecode.ConstPool.readOne(ConstPool.java:1027)
+	at javassist.bytecode.ConstPool.read(ConstPool.java:970)
+	at javassist.bytecode.ConstPool.<init>(ConstPool.java:127)
+	at javassist.bytecode.ClassFile.read(ClassFile.java:693)
+	at javassist.bytecode.ClassFile.<init>(ClassFile.java:85)
+	at javassist.CtClassType.getClassFile2(CtClassType.java:190)
+	... 27 more
+11:46:08,954 INFO  ~ Starting C:\SourceCode\Marketo-master\2waySMS
+11:46:08,956 INFO  ~ Module secure is available (C:\play-1.2.5\modules\secure)
+11:46:09,589 WARN  ~ You're running Play! in DEV mode
+11:46:09,732 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+11:46:19,201 ERROR ~ 
+
+@6k2nfd1fl
+Internal Server Error (500) for request GET /
+
+Oops: UnexpectedException
+An unexpected error occured caused by exception UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+
+play.exceptions.UnexpectedException: While applying play.CorePlugin@f08448 on jobs.AddToFetchQueue
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:556)
+	at play.classloading.ApplicationClasses$ApplicationClass.enhance(ApplicationClasses.java:235)
+	at play.classloading.ApplicationClassloader.loadApplicationClass(ApplicationClassloader.java:167)
+	at play.classloading.ApplicationClassloader.getAllClasses(ApplicationClassloader.java:431)
+	at play.Play.start(Play.java:516)
+	at play.Play.detectChanges(Play.java:630)
+	at play.Invoker$Invocation.init(Invoker.java:198)
+	at Invocation.HTTP Request(Play!)
+Caused by: play.exceptions.UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+	at play.CorePlugin.enhance(CorePlugin.java:302)
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:551)
+	... 7 more
+Caused by: java.lang.RuntimeException: java.io.IOException: invalid constant type: 15
+	at javassist.CtClassType.getClassFile2(CtClassType.java:203)
+	at javassist.CtClassType.subtypeOf(CtClassType.java:303)
+	at javassist.bytecode.stackmap.TypeData$TypeName.update(TypeData.java:274)
+	at javassist.bytecode.stackmap.TypeData$TypeName.setType(TypeData.java:203)
+	at javassist.bytecode.stackmap.TypeData.setType(TypeData.java:46)
+	at javassist.bytecode.stackmap.Tracer.checkParamTypes(Tracer.java:908)
+	at javassist.bytecode.stackmap.Tracer.doInvokeMethod(Tracer.java:813)
+	at javassist.bytecode.stackmap.Tracer.doOpcode148_201(Tracer.java:615)
+	at javassist.bytecode.stackmap.Tracer.doOpcode(Tracer.java:101)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:161)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:120)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:96)
+	at javassist.bytecode.MethodInfo.rebuildStackMap(MethodInfo.java:404)
+	at javassist.bytecode.MethodInfo.rebuildStackMapIf6(MethodInfo.java:389)
+	at javassist.expr.ExprEditor.doit(ExprEditor.java:112)
+	at javassist.CtBehavior.instrument(CtBehavior.java:618)
+	at play.classloading.enhancers.PropertiesEnhancer.enhanceThisClass(PropertiesEnhancer.java:135)
+	at play.CorePlugin.enhance(CorePlugin.java:297)
+	... 8 more
+Caused by: java.io.IOException: invalid constant type: 15
+	at javassist.bytecode.ConstPool.readOne(ConstPool.java:1027)
+	at javassist.bytecode.ConstPool.read(ConstPool.java:970)
+	at javassist.bytecode.ConstPool.<init>(ConstPool.java:127)
+	at javassist.bytecode.ClassFile.read(ClassFile.java:693)
+	at javassist.bytecode.ClassFile.<init>(ClassFile.java:85)
+	at javassist.CtClassType.getClassFile2(CtClassType.java:190)
+	... 27 more
+11:49:17,828 INFO  ~ Starting C:\SourceCode\Marketo-master\2waySMS
+11:49:17,830 INFO  ~ Module secure is available (C:\play-1.2.5\modules\secure)
+11:49:18,455 WARN  ~ You're running Play! in DEV mode
+11:49:18,591 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+11:49:28,515 ERROR ~ 
+
+@6k2nfnlg9
+Internal Server Error (500) for request GET /
+
+Oops: UnexpectedException
+An unexpected error occured caused by exception UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+
+play.exceptions.UnexpectedException: While applying play.CorePlugin@f08448 on jobs.AddToFetchQueue
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:556)
+	at play.classloading.ApplicationClasses$ApplicationClass.enhance(ApplicationClasses.java:235)
+	at play.classloading.ApplicationClassloader.loadApplicationClass(ApplicationClassloader.java:167)
+	at play.classloading.ApplicationClassloader.getAllClasses(ApplicationClassloader.java:431)
+	at play.Play.start(Play.java:516)
+	at play.Play.detectChanges(Play.java:630)
+	at play.Invoker$Invocation.init(Invoker.java:198)
+	at Invocation.HTTP Request(Play!)
+Caused by: play.exceptions.UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+	at play.CorePlugin.enhance(CorePlugin.java:302)
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:551)
+	... 7 more
+Caused by: java.lang.RuntimeException: java.io.IOException: invalid constant type: 15
+	at javassist.CtClassType.getClassFile2(CtClassType.java:203)
+	at javassist.CtClassType.subtypeOf(CtClassType.java:303)
+	at javassist.bytecode.stackmap.TypeData$TypeName.update(TypeData.java:274)
+	at javassist.bytecode.stackmap.TypeData$TypeName.setType(TypeData.java:203)
+	at javassist.bytecode.stackmap.TypeData.setType(TypeData.java:46)
+	at javassist.bytecode.stackmap.Tracer.checkParamTypes(Tracer.java:908)
+	at javassist.bytecode.stackmap.Tracer.doInvokeMethod(Tracer.java:813)
+	at javassist.bytecode.stackmap.Tracer.doOpcode148_201(Tracer.java:615)
+	at javassist.bytecode.stackmap.Tracer.doOpcode(Tracer.java:101)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:161)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:120)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:96)
+	at javassist.bytecode.MethodInfo.rebuildStackMap(MethodInfo.java:404)
+	at javassist.bytecode.MethodInfo.rebuildStackMapIf6(MethodInfo.java:389)
+	at javassist.expr.ExprEditor.doit(ExprEditor.java:112)
+	at javassist.CtBehavior.instrument(CtBehavior.java:618)
+	at play.classloading.enhancers.PropertiesEnhancer.enhanceThisClass(PropertiesEnhancer.java:135)
+	at play.CorePlugin.enhance(CorePlugin.java:297)
+	... 8 more
+Caused by: java.io.IOException: invalid constant type: 15
+	at javassist.bytecode.ConstPool.readOne(ConstPool.java:1027)
+	at javassist.bytecode.ConstPool.read(ConstPool.java:970)
+	at javassist.bytecode.ConstPool.<init>(ConstPool.java:127)
+	at javassist.bytecode.ClassFile.read(ClassFile.java:693)
+	at javassist.bytecode.ClassFile.<init>(ClassFile.java:85)
+	at javassist.CtClassType.getClassFile2(CtClassType.java:190)
+	... 27 more
+11:51:10,128 INFO  ~ Starting C:\SourceCode\Marketo-master\2waySMS
+11:51:10,130 INFO  ~ Module secure is available (C:\play-1.2.5\modules\secure)
+11:51:10,803 WARN  ~ You're running Play! in DEV mode
+11:51:10,939 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+11:51:19,134 ERROR ~ 
+
+@6k2ng436m
+Internal Server Error (500) for request GET /
+
+Oops: UnexpectedException
+An unexpected error occured caused by exception UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+
+play.exceptions.UnexpectedException: While applying play.CorePlugin@f08448 on jobs.AddToFetchQueue
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:556)
+	at play.classloading.ApplicationClasses$ApplicationClass.enhance(ApplicationClasses.java:235)
+	at play.classloading.ApplicationClassloader.loadApplicationClass(ApplicationClassloader.java:167)
+	at play.classloading.ApplicationClassloader.getAllClasses(ApplicationClassloader.java:431)
+	at play.Play.start(Play.java:516)
+	at play.Play.detectChanges(Play.java:630)
+	at play.Invoker$Invocation.init(Invoker.java:198)
+	at Invocation.HTTP Request(Play!)
+Caused by: play.exceptions.UnexpectedException: While applying class play.classloading.enhancers.PropertiesEnhancer on jobs.AddToFetchQueue
+	at play.CorePlugin.enhance(CorePlugin.java:302)
+	at play.plugins.PluginCollection.enhance(PluginCollection.java:551)
+	... 7 more
+Caused by: java.lang.RuntimeException: java.io.IOException: invalid constant type: 15
+	at javassist.CtClassType.getClassFile2(CtClassType.java:203)
+	at javassist.CtClassType.subtypeOf(CtClassType.java:303)
+	at javassist.bytecode.stackmap.TypeData$TypeName.update(TypeData.java:274)
+	at javassist.bytecode.stackmap.TypeData$TypeName.setType(TypeData.java:203)
+	at javassist.bytecode.stackmap.TypeData.setType(TypeData.java:46)
+	at javassist.bytecode.stackmap.Tracer.checkParamTypes(Tracer.java:908)
+	at javassist.bytecode.stackmap.Tracer.doInvokeMethod(Tracer.java:813)
+	at javassist.bytecode.stackmap.Tracer.doOpcode148_201(Tracer.java:615)
+	at javassist.bytecode.stackmap.Tracer.doOpcode(Tracer.java:101)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:161)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:171)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:120)
+	at javassist.bytecode.stackmap.MapMaker.make(MapMaker.java:96)
+	at javassist.bytecode.MethodInfo.rebuildStackMap(MethodInfo.java:404)
+	at javassist.bytecode.MethodInfo.rebuildStackMapIf6(MethodInfo.java:389)
+	at javassist.expr.ExprEditor.doit(ExprEditor.java:112)
+	at javassist.CtBehavior.instrument(CtBehavior.java:618)
+	at play.classloading.enhancers.PropertiesEnhancer.enhanceThisClass(PropertiesEnhancer.java:135)
+	at play.CorePlugin.enhance(CorePlugin.java:297)
+	... 8 more
+Caused by: java.io.IOException: invalid constant type: 15
+	at javassist.bytecode.ConstPool.readOne(ConstPool.java:1027)
+	at javassist.bytecode.ConstPool.read(ConstPool.java:970)
+	at javassist.bytecode.ConstPool.<init>(ConstPool.java:127)
+	at javassist.bytecode.ClassFile.read(ClassFile.java:693)
+	at javassist.bytecode.ClassFile.<init>(ClassFile.java:85)
+	at javassist.CtClassType.getClassFile2(CtClassType.java:190)
+	... 27 more

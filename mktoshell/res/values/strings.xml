@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name" translatable="false">MEngage</string>
+    <string name="title_track_detail" translatable="false">Track Detail</string>
+    <string name="ad_ticker">ads go here</string>
+	<string name="reset">Reset App</string>
+	<string name="refresh">Refresh Base</string>
+</resources>
