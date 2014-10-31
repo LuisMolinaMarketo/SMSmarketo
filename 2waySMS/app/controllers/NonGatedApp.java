@@ -21,6 +21,7 @@ import models.GoogleCampaign;
 import models.Lead;
 import models.PhoneQuery;
 import models.SMSCampaign;
+import models.Type1Service;
 import models.User;
 
 import org.apache.commons.io.FileUtils;
@@ -32,6 +33,8 @@ import play.data.validation.Required;
 import play.libs.Crypto;
 import play.mvc.Controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
@@ -40,6 +43,7 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder;
 import common.Constants;
 import common.MarketoUtility;
+import common.OAuthToken;
 import common.RegionUtil;
 
 public class NonGatedApp extends Controller {
@@ -136,7 +140,7 @@ public class NonGatedApp extends Controller {
 	}
 
 	public static void phoneQuery(String munchkinId, String leadId,
-			String phoneNum, String format) {
+			String phoneNum, String format, String country) {
 
 		String user = Security.connected();
 		Logger.debug("User is %s", user);
@@ -160,7 +164,11 @@ public class NonGatedApp extends Controller {
 		PhoneNumber phoneObj;
 		try {
 
-			phoneObj = phoneUtil.parse(phoneNum, "US");
+			if (country != null && !country.isEmpty()) {
+				phoneObj = phoneUtil.parse(phoneNum, country);
+			} else {
+				phoneObj = phoneUtil.parse(phoneNum, "US");
+			}
 			if (format.equalsIgnoreCase(Constants.PHONE_FORMAT_E164)) {
 				pq.format = Constants.PHONE_FORMAT_E164;
 				number = phoneUtil.format(phoneObj, PhoneNumberFormat.E164);
@@ -177,7 +185,7 @@ public class NonGatedApp extends Controller {
 			String city = "";
 			String state = "";
 			String region = "";
-			String country = getCountryName(phoneUtil, phoneObj);
+			String cntry = getCountryName(phoneUtil, phoneObj);
 			region = geocoder.getDescriptionForNumber(phoneObj, Locale.ENGLISH);
 			if (region != null && region.contains(",")) {
 				String[] values = region.split(",");
@@ -202,14 +210,14 @@ public class NonGatedApp extends Controller {
 			phType = type.toString();
 
 			String retVal = createJsonForPhoneQueryResponse(leadId, phoneNum,
-					format, number, city, state, country, phType);
+					format, number, city, state, cntry, phType);
 
 			pq.formattedNum = number;
 			pq.leadId = leadId;
 			pq.city = city;
 			pq.state = state;
 			pq.type = phType;
-			pq.country = country;
+			pq.country = cntry;
 			pq.save();
 
 			Logger.debug("phoneQuery returns :%s", retVal);
@@ -260,6 +268,52 @@ public class NonGatedApp extends Controller {
 			renderJSON("{\"result\": \"error - could not parse scores\"}");
 			throw ne;
 		}
+	}
+
+	public static void deleteLead(String munchkinId, String leadId) {
+		if (munchkinId == null || leadId == null || munchkinId.equals("")
+				|| leadId.equals("")) {
+			renderText("{\"result\" : \"error - must provide munchkinId, scId and leadId\" }");
+		}
+		List<Lead> leadList = Lead.find("munchkinId = ? and leadId = ? ",
+				munchkinId, Integer.valueOf(leadId)).fetch();
+		Lead deleteThisLead = null;
+		if (leadList != null && leadList.size() > 0) {
+			Logger.debug("Lead with id:%s already exists. Deleting it", leadId);
+			for (Lead ld : leadList) {
+				deleteThisLead = ld;
+			}
+			deleteThisLead.delete();
+		}
+	}
+
+	public static void oauthRedirect(String id, String body) {
+		if (body == null || body.isEmpty()) {
+			Logger.error("No information present in the request ", id);
+			return;
+		}
+		Logger.debug("Received %s %s", id, body);
+		Gson gson = new GsonBuilder().create();
+		OAuthToken ot = gson.fromJson(body, OAuthToken.class);
+		List<Type1Service> svcs = Type1Service.find("redirId = ? and status=?",
+				id, Constants.CAMPAIGN_STATUS_ACTIVE).fetch();
+		if (svcs == null || svcs.size() != 1) {
+			Logger.error(
+					"Unable to find unique Type 1 service with redirectId: %s",
+					id);
+			return;
+		}
+		Type1Service svc = svcs.get(0);
+		if (svc == null) {
+			Logger.error(
+					"Unable to find unique Type 1 service with redirectId: %s",
+					id);
+			return;
+		}
+		svc.oauthToken = body;
+		svc.save();
+		Logger.debug("Saved oauth info: ", body);
+		renderHtml("Got id: " + id + "<br>Body : " + body);
 	}
 
 	public static void addLead(String munchkinId, Long scId, String leadId,

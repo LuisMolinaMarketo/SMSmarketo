@@ -11,6 +11,8 @@ GET 	/fyp									NonGatedApp.forgotPassword
 *       /smsCallback							NonGatedApp.smsCallback
 GET		/status									NonGatedApp.statusMessage
 *       /addLead                                NonGatedApp.addLead
+* 		/deleteLead								NonGatedApp.deleteLead
+*       /oauth/redirect/{id}					NonGatedApp.oauthRedirect
 
 
 #Everthing below this is password protected
@@ -28,6 +30,11 @@ GET		/formulaConfig							Application.formulaConfig
 GET		/execFormulaStatus						Application.execFormulaStatus
 GET		/blogConfig								Application.blogConfig
 GET		/blogStatus								Application.blogStatus
+GET		/svcConfig								Application.svcConfig
+GET		/svcStatus								Application.svcStatus
+GET		/cancelService   						Application.cancelService
+GET		/mobStatus								Application.mobStatus
+*		/mobConfig								Application.mobConfig
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

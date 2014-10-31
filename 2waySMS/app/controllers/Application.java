@@ -1,10 +1,13 @@
 package controllers;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import jobs.SyncListAndExecFormula;
 import jobs.SyncListAndRunFirstSMSRule;
@@ -12,8 +15,13 @@ import models.BlogCampaign;
 import models.FeedFetchQueue;
 import models.FormulaCampaign;
 import models.GoogleCampaign;
+import models.MobileCampaign;
 import models.SMSCampaign;
+import models.Type1Service;
 import models.User;
+
+import org.apache.commons.io.FileUtils;
+
 import play.Logger;
 import play.Play;
 import play.data.validation.Max;
@@ -27,9 +35,14 @@ import play.mvc.Http.Request;
 import play.mvc.Router;
 import play.mvc.With;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.marketo.mktows.wsdl.ResultSyncLead;
 import com.twilio.sdk.resource.list.AccountList;
+
+import common.AppDefinition;
 import common.Constants;
+import common.ContentItem;
 import common.MarketoUtility;
 import common.TwilioUtility;
 
@@ -285,7 +298,6 @@ public class Application extends Controller {
 				"munchkinId = ? and status = ? order by id desc",
 				user.toUpperCase(), "active").fetch();
 		render(user, allCampaigns);
-
 	}
 
 	public static void index(String msg) {
@@ -312,6 +324,47 @@ public class Application extends Controller {
 
 			processFormula(url);
 		}
+	}
+
+	public static void svcConfig(
+			@Required(message = "Must provide name") String name,
+			@URL @Required(message = "Must provide URL") String url,
+			String reurl) {
+		String user = getMunchkinId();
+
+		if (url == null) {
+			String redirectId = UUID.randomUUID().toString()
+					.replaceAll("-", "");
+			String redirectUrl = Play.configuration
+					.getProperty("mkto.serviceUrl")
+					+ "/oauth/redirect/"
+					+ redirectId;
+			render(user, redirectUrl);
+		} else {
+			if (validation.hasErrors()) {
+				String errMsg = "";
+				for (play.data.validation.Error error : validation.errors()) {
+					errMsg += error.message();
+				}
+				statusMessage(errMsg, true);
+			}
+
+			Type1Service svc = new Type1Service(user.toUpperCase(), name, url,
+					reurl);
+			svc.save();
+
+			Logger.info("campaign[%d] - Saved Svc definition", svc.id);
+
+			svcStatus();
+		}
+	}
+
+	public static void svcStatus() {
+		String user = getMunchkinId();
+		List<Type1Service> allServices = Type1Service.find(
+				"munchkinId = ? and status = ? order by id desc",
+				user.toUpperCase(), "active").fetch();
+		render(user, allServices);
 	}
 
 	private static void processFormula(String url) {
@@ -510,6 +563,14 @@ public class Application extends Controller {
 			sc.status = Constants.CAMPAIGN_STATUS_CANCELED;
 			sc.save();
 			break;
+		case Constants.CAMPAIGN_SVC:
+			Type1Service svc = Type1Service.findById(Long.valueOf(id));
+			if (svc != null) {
+				Logger.info("About to cancel campaign [%s]", id);
+			}
+			svc.status = Constants.CAMPAIGN_STATUS_CANCELED;
+			svc.save();
+			break;
 		case Constants.CAMPAIGN_BLOG:
 			BlogCampaign bc = BlogCampaign.findById(Long.valueOf(id));
 			if (bc != null) {
@@ -528,6 +589,11 @@ public class Application extends Controller {
 			bc.status = Constants.CAMPAIGN_STATUS_CANCELED;
 			bc.save();
 			break;
+		case Constants.CAMPAIGN_MOB:
+			MobileCampaign mc = MobileCampaign.findById(Long.valueOf(id));
+			mc.status = Constants.CAMPAIGN_STATUS_CANCELED;
+			mc.save();
+			break;
 		}
 		Logger.info("Canceled campaign [%s]", id);
 		statusMessage("Canceled campaign successfully", false);
@@ -541,5 +607,103 @@ public class Application extends Controller {
 			statusMessage("Unknown user - please logout and try again", true);
 			return null;
 		}
+	}
+
+	public static void mobStatus() {
+		String user = getMunchkinId();
+		List<MobileCampaign> allCampaigns = MobileCampaign.find(
+				"munchkinId = ? and status = ? order by id desc",
+				user.toUpperCase(), "active").fetch();
+		render(user, allCampaigns);
+	}
+
+	public static void mobConfig(int init, String id, @MaxSize(50) String name,
+			@MaxSize(2000) String body) {
+		if (init != 1 && validation.hasErrors()) {
+			String errMsg = "";
+			for (play.data.validation.Error error : validation.errors()) {
+				errMsg += error.message();
+			}
+			statusMessage(errMsg, true);
+		}
+
+		String user = getMunchkinId();
+		if (init == 2) {
+			// Edit existing
+			MobileCampaign mc = MobileCampaign.findById(Long.valueOf(id));
+			if (mc == null) {
+				render(user);
+			} else {
+				String urlBase = Play.configuration
+						.getProperty("mkto.mobileBaseDir");
+				File file = new File(urlBase + mc.campaignId + ".json");
+				try {
+					String json = FileUtils.readFileToString(file);
+					String storedName = mc.name;
+					render(user, storedName, json);
+				} catch (IOException e) {
+					Logger.error("Unable to read file [%s]", file.toString());
+					render(user);
+				}
+			}
+			String json = "{ items:[]}";
+			render(user, json);
+		}
+
+		if (name == null) {
+			render(user);
+		}
+
+		mobConfigSave(user, name, body);
+	}
+
+	private static void mobConfigSave(String user, String name, String json) {
+		String munchkinId = user.toUpperCase();
+		List<MobileCampaign> mCampaigns = MobileCampaign.find(
+				"munchkinId = ? and name=? and status='active'", munchkinId,
+				name).fetch();
+		MobileCampaign mc = null;
+		if (mCampaigns == null || mCampaigns.size() == 0) {
+			// create new campaign
+			mc = new MobileCampaign();
+			mc.munchkinId = user.toUpperCase();
+			mc.name = name;
+			UUID uuid = UUID.randomUUID();
+			mc.campaignId = uuid.toString();
+			mc.status = Constants.CAMPAIGN_STATUS_ACTIVE;
+		} else {
+			// update existing campaign
+			mc = mCampaigns.get(0);
+		}
+
+		try {
+			updateDefinition(mc.campaignId, json);
+			mc.save();
+		} catch (IOException e) {
+			Logger.debug("Failed saving app definition [%s]", name);
+			badRequest();
+		}
+
+		Logger.debug("Returning okay - saved mob app [%s]", name);
+		ok();
+
+	}
+
+	private static void updateDefinition(String campaignId, String json)
+			throws IOException {
+		String urlBase = Play.configuration.getProperty("mkto.mobileBaseDir");
+		// uppercase for backward compat
+		json = json.replace("\\\"", "\"");
+		Gson gson = new GsonBuilder().create();
+		AppDefinition app = gson.fromJson(json, AppDefinition.class);
+		Iterator<ContentItem> it = app.items.iterator();
+		while (it.hasNext()) {
+			ContentItem ciVal = it.next();
+			ciVal.uuid = campaignId;
+		}
+		json = gson.toJson(app);
+		Logger.debug("Writing app[%s] definition:%s to file ", campaignId, json);
+		File file = new File(urlBase + campaignId + ".json");
+		FileUtils.writeStringToFile(file, json);
 	}
 }

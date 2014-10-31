@@ -440,8 +440,9 @@ public class MarketoUtility {
 					fc.munchkinAccountId, fc.id, fc.programName, fc.leadList,
 					vars);
 
+			String defaultRegion = fc.defaultRegion;
 			processedLeadList = csb.mktoPhoneFormat(inflightList,
-					vars[0].trim(), vars[1].trim());
+					vars[0].trim(), vars[1].trim(), defaultRegion.trim());
 			syncMultiple = true;
 		} else { // custom code
 			// no-op for now

@@ -295,10 +295,9 @@ public class CodeSandbox {
 					String regionCode = RegionUtil.getStateShortCode(region);
 					if (regionCode.equals("") || regionCode == null) {
 						regionCode = region;
-					} 
-					//Special handling for DC, US and Canada
-					if (regionCode.equals("US")
-							|| regionCode.equals("Canada")) {
+					}
+					// Special handling for DC, US and Canada
+					if (regionCode.equals("US") || regionCode.equals("Canada")) {
 						Logger.debug(
 								"For Phone : %s, clearing city and state because region=US",
 								pn, cityField, regionCode);
@@ -338,12 +337,13 @@ public class CodeSandbox {
 	}
 
 	public List<LeadRecord> mktoPhoneFormat(List<LeadRecord> inflightList,
-			String phoneField, String formatType) {
+			String phoneField, String formatType, String defaultRegion) {
 		List<LeadRecord> retList = new ArrayList<LeadRecord>();
 		LeadRecord retLead = null;
 		for (LeadRecord lr : inflightList) {
 			retLead = null;
-			retLead = mktoLeadPhoneFormat(lr, false, phoneField, formatType);
+			retLead = mktoLeadPhoneFormat(lr, false, phoneField, formatType,
+					defaultRegion);
 			if (retLead != null) {
 				retList.add(retLead);
 			}
@@ -352,7 +352,8 @@ public class CodeSandbox {
 	}
 
 	private LeadRecord mktoLeadPhoneFormat(LeadRecord leadRecord,
-			boolean syncImmediate, String phoneField, String formatType) {
+			boolean syncImmediate, String phoneField, String formatType,
+			String defaultRegion) {
 		if (leadRecord == null) {
 			return null;
 		}
@@ -365,7 +366,7 @@ public class CodeSandbox {
 			String region = null;
 			String opn = extractAttributeValue(leadRecord, phoneField);
 			Logger.debug("Phone number is %s", opn);
-			PhoneNumber phoneObj = phoneUtil.parse(opn, "US");
+			PhoneNumber phoneObj = phoneUtil.parse(opn, defaultRegion);
 			String npn = "";
 			if (formatType.equalsIgnoreCase(Constants.PHONE_FORMAT_E164)) {
 				npn = phoneUtil.format(phoneObj, PhoneNumberFormat.E164);

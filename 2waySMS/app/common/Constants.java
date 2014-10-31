@@ -26,6 +26,8 @@ public class Constants {
 	public static final int CAMPAIGN_GOOG = 1002;
 	public static final int CAMPAIGN_FORMULA = 1003;
 	public static final int CAMPAIGN_BLOG = 1004;
+	public static final int CAMPAIGN_SVC = 1005;
+	public static final int CAMPAIGN_MOB = 1006;
 	
 	public static final String FORMULA_STRING_PROPER = "mktoProper";
 	public static final String FORMULA_ADD = "mktoAdd";
